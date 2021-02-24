@@ -9,7 +9,7 @@ module.exports = {
         config.resolve.alias
             .set("@", resolve("src"))
     },
-    publicPath: './',
+    publicPath: '/',
     assetsDir: "static",
     //outputDir: "cordova/cordova-app/www",
     productionSourceMap: false,
@@ -19,8 +19,9 @@ module.exports = {
                 'vue$': 'vue/dist/vue.esm.js'
             }
         }
-    },
-    devServer: {
-        proxy: process.env.VUE_APP_SERVER
-    }
+
+     },
+    // devServer: {
+    //     proxy: process.env.VUE_APP_SERVER
+    // }
 }

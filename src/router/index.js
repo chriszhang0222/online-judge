@@ -13,13 +13,18 @@ const routes = [
         'component': Home,
         'children': [
             {
+                'path': '/problem/:id',
+                'name': 'Problem',
+                'component': ProblemDetail
+            },
+            {
                 'path': '/problems',
                 'name': 'Problems',
                 'component': Problems,
             },
             {
-                'path': '/problem/:id',
-                'name': 'Problem',
+                'path': '/hello',
+                 'name': 'Hello',
                 'component': ProblemDetail
             }
 

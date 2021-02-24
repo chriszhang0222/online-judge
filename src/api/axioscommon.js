@@ -1,6 +1,6 @@
 import {Toast} from "@/utils/Toast";
 import QS from 'qs';
-const baseUrl = process.env.VUE_APP_SERVER;
+const baseUrl = 'http://localhost:8888/';
 import axios from 'axios';
 
 axios.interceptors.request.use(

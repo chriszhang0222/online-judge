@@ -98,8 +98,14 @@ a {
     text-align: left;
 }
 
+.place-left{
+    float: left;
+}
 .margin-top20{
     margin-top: 20px;
+}
+.margin-top50{
+    margin-top: 50px;
 }
 
 /*BaseForm*/

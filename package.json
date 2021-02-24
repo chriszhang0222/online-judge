@@ -21,6 +21,7 @@
     "sweetalert": "^2.1.2",
     "vue": "^2.6.11",
     "vue-bus": "^1.2.1",
+    "vue-monaco-editor": "0.0.19",
     "vue-router": "^3.4.2",
     "vue-vertx3-eventbus-client": "^3.6.0",
     "vuex": "^3.5.1"
