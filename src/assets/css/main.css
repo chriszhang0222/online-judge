@@ -94,6 +94,14 @@ a {
     opacity: 0;
 }
 
+.pull-left {
+    text-align: left;
+}
+
+.margin-top20{
+    margin-top: 20px;
+}
+
 /*BaseForm*/
 
 /*.form-box {*/
