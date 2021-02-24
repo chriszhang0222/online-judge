@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../view/Home.vue';
 import Problems from "@/view/Problems";
 import ProblemDetail from "@/view/ProblemDetail";
+import AddProblem from "@/view/AddProblem";
 
 Vue.use(VueRouter)
 
@@ -23,9 +24,9 @@ const routes = [
                 'component': Problems,
             },
             {
-                'path': '/hello',
-                 'name': 'Hello',
-                'component': ProblemDetail
+                'path': '/add',
+                 'name': 'Add',
+                'component': AddProblem
             }
 
         ]
