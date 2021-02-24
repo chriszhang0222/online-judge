@@ -26,31 +26,33 @@
 </template>
 
 <script>
+import {getProblem} from '@/api/problemapi'
 import ProblemSection from "@/components/ProblemSection";
+import {Toast} from "@/utils/Toast";
+
 export default {
   name: "Problems",
   components:{ProblemSection},
+  mounted() {
+    getProblem({'page': 1, 'pnum': 10}, this.getProblemCallBack)
+  },
   data(){
     return{
       problems: [
-        {
-          'name': 'Two Sum',
-          'desc': 'This is two sum',
-          'diff': 'easy',
-          'id': 1
-        },
-        {
-          'name': 'Three Sum',
-          'desc': 'This is three sum',
-          'diff': 'medium',
-          'id': 2
-        }
       ]
     }
   },
   methods:{
     test(){
       console.log("hello")
+    },
+    getProblemCallBack(res){
+      if(res.status === 200){
+        let data = res.data
+        this.problems = data.data
+      }else{
+        Toast.error('Can not get problem list from server')
+      }
     }
   }
 
