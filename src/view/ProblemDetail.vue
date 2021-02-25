@@ -20,7 +20,7 @@
                     :value="item.path">
                 </el-option>
               </el-select>
-              <el-button>Reset</el-button>
+              <el-button @click="resetCode">Reset</el-button>
             </el-row>
 
             <el-row class="margin-top20">
@@ -118,6 +118,9 @@ export default {
     submitResult(){
       let value = this.aceEditor.getSession().getValue()
       console.log(value)
+    },
+    resetCode(){
+      this.aceEditor.setValue("")
     }
   }
 }
