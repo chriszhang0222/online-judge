@@ -42,6 +42,10 @@
 </template>
 
 <script>
+import {Tools} from "@/utils/Tools";
+import {AddProblem} from "@/api/problemapi";
+import {Toast} from "@/utils/Toast";
+
 export default {
   name: "AddProblem",
   data(){
@@ -73,6 +77,24 @@ export default {
           return false;
         }
       });
+      let param = new FormData()
+      param.append("name", this.form.name)
+      param.append("diff", this.form.diff)
+      param.append("desc", this.form.desc)
+      param.append("id", Tools.uuid(10))
+      AddProblem(param, (res)=>{
+        if(res.status === 200){
+          Toast.success("Successfully add problem")
+          this.form = {
+            name: '',
+            desc: '',
+            diff: '',
+          }
+        }else{
+          Toast.error(res.data.data.message)
+        }
+      })
+
     }
   }
 }
