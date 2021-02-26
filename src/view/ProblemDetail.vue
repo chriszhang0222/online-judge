@@ -3,34 +3,34 @@
     <el-card>
       <el-row :gutter=30>
         <el-col :span="8" class="pull-left">
-            <h2>{{problem.id}}.{{problem.name }}
-              <span class="diff-block" v-bind:class="problem.Diff" style="float: right;font-size: 14px;margin-top: 5px">{{ problem.Diff.toUpperCase() }}</span>
-            </h2>
+          <h2>{{ problem.id }}.{{ problem.name }}
+            <span class="diff-block" v-bind:class="problem.Diff"
+                  style="float: right;font-size: 14px;margin-top: 5px">{{ problem.Diff.toUpperCase() }}</span>
+          </h2>
           <hr>
-            <p>{{problem.desc}}</p>
+          <p>{{ problem.desc }}</p>
         </el-col>
         <el-col :span="16" class="left-border">
-          {{ value }}
-            <el-row class="place-left">
-              <el-select v-model="value" placeholder="请选择" @change="onChange">
-                <el-option
-                    v-for="item in options"
-                    :key="item.name"
-                    :label="item.name"
-                    :value="item.path">
-                </el-option>
-              </el-select>
-              <el-button @click="resetCode">Reset</el-button>
-            </el-row>
+          <el-row class="place-left">
+            <el-select v-model="value" placeholder="请选择" @change="onChange">
+              <el-option
+                  v-for="item in selections"
+                  :key="item.name"
+                  :label="item.name"
+                  :value="item.value">
+              </el-option>
+            </el-select>
+            <el-button @click="resetCode">Reset</el-button>
+          </el-row>
 
-            <el-row class="margin-top20">
-              <div class="ace-container">
-                  <div class="ace-editor" ref="ace"></div>
-              </div>
-            </el-row>
-            <el-row class="margin-top20">
-              <el-button type="success" class="pull-left" @click="submitResult">Submit</el-button>
-            </el-row>
+          <el-row class="margin-top50">
+            <div class="ace-container">
+              <div class="ace-editor" ref="ace"></div>
+            </div>
+          </el-row>
+          <el-row class="margin-top20">
+            <el-button type="success" class="pull-left" @click="submitResult">Submit</el-button>
+          </el-row>
         </el-col>
       </el-row>
     </el-card>
@@ -48,6 +48,7 @@ import 'ace-builds/src-noconflict/mode-python'
 import 'ace-builds/src-noconflict/mode-golang'
 import 'ace-builds/src-noconflict/mode-c_cpp'
 import 'ace-builds/src-noconflict/ext-language_tools'
+
 export default {
   name: "ProblemDetail",
   mounted() {
@@ -58,7 +59,8 @@ export default {
           fontSize: 14,
           mode: this.modepath,
           theme: this.themepath,
-          tabSize: 4
+          tabSize: 4,
+          value: this.default_code
         }
     )
     this.aceEditor.setOptions({
@@ -68,59 +70,75 @@ export default {
     })
 
   },
-  data(){
-    return{
+  data() {
+    return {
       aceEditor: null,
       modepath: 'ace/mode/javascript',
       themepath: 'ace/theme/monokai',
-      option:{},
+      option: {},
       problem: {
         'id': 1,
         'name': 'Two Sum',
         'Diff': 'easy',
         'desc': 'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.'
       },
-      options: [
-        {
-          name: 'JavaScript',
+      selections: [
+        {name: 'JavaScript', value: 'js'},
+        {name: 'Python', value: 'python'},
+        {name: 'Java', value: 'java'},
+        {name: 'GoLang', value: 'golang'}
+      ],
+      code_option: {
+        js: {
           path: 'ace/mode/javascript',
+          default: `var func = function(){
+ //insert code here
+}
+            `
         },
-        {
-          name: 'Python',
-          path: 'ace/mode/python'
+        python: {
+          path: 'ace/mode/python',
+          default: `class Solution:
+   def example():
+       # Write your Python code here`
         },
-        {
-          name: 'Java',
-          path: 'ace/mode/java'
+        java: {
+          path: 'ace/mode/java',
+          default: `public class Example {
+     public static void main(String[] args) {
+         // Type your Java code here
+     }
+   }`
         },
-        {
-          name: 'GoLang',
-          path: 'ace/mode/golang'
-        },
-        {
-          name: 'C++',
-          path: 'ace/mode/c_cpp'
+        golang:{
+          path: 'ace/mode/golang',
+          default: `func function(){
+            }
+            `
         }
-      ],
-      values: [
-          ''
-      ],
-      value:'ace/mode/javascript',
+      },
+      value: 'js',
+      default_code:  `var func = function(){
+          //insert code here
+ }`
     }
   },
   methods: {
-    setProblemDetail(){
+    setProblemDetail() {
 
     },
-    onChange(val){
-      this.aceEditor.getSession().setMode(val)
+    onChange(val) {
+      let selection = this.code_option[val]
+      this.default_code = selection.default
+      this.aceEditor.setValue(this.default_code)
+      this.aceEditor.getSession().setMode(selection.path)
     },
-    submitResult(){
+    submitResult() {
       let value = this.aceEditor.getSession().getValue()
       console.log(value)
     },
-    resetCode(){
-      this.aceEditor.setValue("")
+    resetCode() {
+      this.aceEditor.setValue(this.default_code)
     }
   }
 }
@@ -135,7 +153,8 @@ export default {
   color: white;
   font-weight: bolder;
 }
-.easy{
+
+.easy {
   background-color: #14a5f3;
 }
 
@@ -151,7 +170,7 @@ export default {
   background-color: #d10000;
 }
 
-.left-border{
+.left-border {
   border-left: 1px solid #ddd;
 }
 
