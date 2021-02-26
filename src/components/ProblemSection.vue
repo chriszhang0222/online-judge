@@ -5,7 +5,7 @@
         <span class="diff-block" v-bind:class="problem.diff">{{ problem.diff.toUpperCase() }}</span>
       </el-col>
       <el-col :span="22" class="pull-left">
-        <strong class="problem-title">{{ index }} | {{ problem.name }}</strong>
+        <strong class="problem-title">{{ index+1 }} | {{ problem.name }}</strong>
       </el-col>
     </el-row>
     <el-row class="margin-top20">

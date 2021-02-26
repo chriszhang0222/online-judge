@@ -7,3 +7,7 @@ export const getProblem = (params, callback) =>{
 export const getProblemDetail = (params, callback) => {
     return apiAsync("get", "/api/v1/problems/"+params, {}, callback)
 }
+
+export const getTotal = (params, callback) => {
+    return apiAsync("get", "/api/v1/data/count", {}, callback)
+}

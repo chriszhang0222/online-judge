@@ -3,9 +3,9 @@
     <el-card>
       <el-row :gutter=30>
         <el-col :span="8" class="pull-left">
-          <h2>{{ problem.id }}.{{ problem.name }}
-            <span class="diff-block" v-bind:class="problem.Diff"
-                  style="float: right;font-size: 14px;margin-top: 5px">{{ problem.Diff.toUpperCase() }}</span>
+          <h2>{{ problem.name }}
+            <span class="diff-block" v-bind:class="problem.diff"
+                  style="float: right;font-size: 14px;margin-top: 5px">{{ problem.diff.toUpperCase() }}</span>
           </h2>
           <hr>
           <p>{{ problem.desc }}</p>
@@ -52,6 +52,7 @@ import 'ace-builds/src-noconflict/ext-language_tools'
 export default {
   name: "ProblemDetail",
   mounted() {
+    getProblemDetail(this.$route.params.id, this.problemDetailCallback)
     this.aceEditor = ace.edit(
         this.$refs.ace, {
           maxLines: 40,
@@ -79,7 +80,7 @@ export default {
       problem: {
         'id': 1,
         'name': 'Two Sum',
-        'Diff': 'easy',
+        'diff': 'easy',
         'desc': 'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.'
       },
       selections: [
@@ -139,6 +140,12 @@ export default {
     },
     resetCode() {
       this.aceEditor.setValue(this.default_code)
+    },
+    problemDetailCallback(res){
+      if(res.status === 200){
+        let data = res.data
+        this.problem = data.data
+      }
     }
   }
 }

@@ -17,7 +17,7 @@
         <div class="block margin-top20">
           <el-pagination
               layout="prev, pager, next"
-              :total="50">
+              :total="total">
           </el-pagination>
         </div>
 
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {getProblem} from '@/api/problemapi'
+import {getProblem, getTotal} from '@/api/problemapi'
 import ProblemSection from "@/components/ProblemSection";
 import {Toast} from "@/utils/Toast";
 
@@ -35,16 +35,20 @@ export default {
   components:{ProblemSection},
   mounted() {
     getProblem({'page': 1, 'pnum': 10}, this.getProblemCallBack)
+    getTotal({}, this.getTotalCallBack)
   },
   data(){
     return{
       problems: [
-      ]
+      ],
+      total: 0
     }
   },
   methods:{
-    test(){
-      console.log("hello")
+    getTotalCallBack(res){
+      if(res.status === 200){
+        this.total = res.data.data()
+      }
     },
     getProblemCallBack(res){
       if(res.status === 200){
