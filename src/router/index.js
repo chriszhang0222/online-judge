@@ -14,14 +14,14 @@ const routes = [
         'component': Home,
         'children': [
             {
+                'path': '',
+                'name': 'Problems',
+                'component': Problems
+            },
+            {
                 'path': '/problem/:id',
                 'name': 'Problem',
                 'component': ProblemDetail
-            },
-            {
-                'path': '/problems',
-                'name': 'Problems',
-                'component': Problems,
             },
             {
                 'path': '/add',

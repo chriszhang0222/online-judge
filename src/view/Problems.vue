@@ -1,13 +1,5 @@
 <template>
     <div>
-      <div class="crumbs">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>
-            <i class="el-icon-pie-chart"></i>Problems
-          </el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
-
       <el-card shadow="hover">
           <div v-for="(item, index) in problems" :key="index">
             <ProblemSection
@@ -47,7 +39,7 @@ export default {
   methods:{
     getTotalCallBack(res){
       if(res.status === 200){
-        this.total = res.data.data()
+        this.total = res.data.data
       }
     },
     getProblemCallBack(res){

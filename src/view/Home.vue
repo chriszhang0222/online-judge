@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="/problems">Online Judge</b-navbar-brand>
+      <b-navbar-brand href="/">Online Judge</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
@@ -25,8 +25,26 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <div class="crumbs">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>
+          <i class="el-icon-pie-chart"></i>Problems
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <div class="content-box">
       <div class="content">
+        <div class="block">
+          <el-card>
+          <el-carousel height="150px">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <el-image
+                  :src="url"
+                  :fit="'fill'"></el-image>
+            </el-carousel-item>
+          </el-carousel>
+          </el-card>
+        </div>
         <transition name="move" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -43,7 +61,9 @@ name: "Home",
   },
   data(){
     return {
-      search_input: ''
+      search_input: '',
+      fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
+      url: require('../assets/logo.png')
     }
   }
 }
